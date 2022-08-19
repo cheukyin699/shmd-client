@@ -1,0 +1,19 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="@string/server_header" >
+        <EditTextPreference
+            android:defaultValue="Default value"
+            android:key="server_ip"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:title="@string/server_ip_title" />
+        <EditTextPreference
+            android:defaultValue="Default value"
+            android:key="server_port"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:title="@string/server_port_title" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

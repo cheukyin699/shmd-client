@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/statusFragment">
+    <fragment
+        android:id="@+id/statusFragment"
+        android:name="ca.cheuksblog.shmdclient.StatusFragment"
+        android:label="SHMD Status"
+        tools:layout="@layout/fragment_status" >
+        <action
+            android:id="@+id/action_statusFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_statusFragment_to_manageDownloadsFragment"
+            app:destination="@id/manageDownloadsFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_statusFragment_to_browseFragment"
+            app:destination="@id/browseFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="ca.cheuksblog.shmdclient.SettingsFragment"
+        android:label="Settings" />
+    <fragment
+        android:id="@+id/manageDownloadsFragment"
+        android:name="ca.cheuksblog.shmdclient.ManageDownloadsFragment"
+        android:label="Manage Downloads"
+        tools:layout="@layout/fragment_manage_downloads" />
+    <fragment
+        android:id="@+id/browseFragment"
+        android:name="ca.cheuksblog.shmdclient.BrowseFragment"
+        android:label="Browse"
+        tools:layout="@layout/fragment_browse" />
+</navigation>
