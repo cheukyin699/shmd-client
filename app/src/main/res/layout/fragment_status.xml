@@ -15,7 +15,9 @@
             android:id="@+id/statusTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
             android:text="@string/hello_blank_fragment"
+            android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -24,10 +26,11 @@
             android:id="@+id/browseButton"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
+            android:layout_marginTop="32dp"
             android:text="@string/browse_text"
-            app:layout_constraintTop_toBottomOf="@id/statusTextView"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintTop_toBottomOf="@id/statusTextView" />
 
         <Button
             android:id="@+id/manageDownloadsButton"
@@ -44,8 +47,8 @@
             android:layout_height="wrap_content"
             android:text="@string/settings_text"
             app:layout_constraintTop_toBottomOf="@id/manageDownloadsButton"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

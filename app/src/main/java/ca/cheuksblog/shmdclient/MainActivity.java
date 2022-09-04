@@ -15,7 +15,13 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+
 public class MainActivity extends AppCompatActivity {
+
+    private Executor executor;
+    private SHMDApi shmdApi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,5 +33,8 @@ public class MainActivity extends AppCompatActivity {
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         Toolbar toolbar = findViewById(R.id.toolbar);
         NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration);
+
+        executor = Executors.newSingleThreadExecutor();
+        shmdApi = new SHMDApi("10.0.0.125", "3030", executor);
     }
 }

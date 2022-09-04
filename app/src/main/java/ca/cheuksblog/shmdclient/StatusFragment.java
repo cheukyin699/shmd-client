@@ -1,6 +1,7 @@
 package ca.cheuksblog.shmdclient;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 
@@ -9,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,9 +72,33 @@ public class StatusFragment extends Fragment {
         return view;
     }
 
+    private String buildStatusText(Status status, boolean online) {
+        final int downloaded = 0;
+        final int total = status == null ? 0 : status.total;
+        return getString(
+                R.string.server_status_text,
+                getString(online ? R.string.online_text : R.string.offline_text),
+                SHMDApi.getInstance().getIp()) +
+                '\n' +
+                getString(
+                        R.string.download_status_text,
+                        downloaded,
+                        total
+                );
+    }
+
     private void refreshStatusText(TextView statusText, SwipeRefreshLayout swipeRefreshLayout) {
         if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.INTERNET) == PackageManager.PERMISSION_GRANTED) {
-            Toast.makeText(getContext(), "Has internet permissions", Toast.LENGTH_SHORT).show();
+            SHMDApi.getInstance().getStatus(statusResult -> {
+                if (statusResult.hasError()) {
+                    final Exception e = statusResult.getError();
+                    Log.e("shmd", e.toString());
+                    getActivity().runOnUiThread(() -> statusText.setText(buildStatusText(null, false)));
+                } else {
+                    final Status status = statusResult.getData();
+                    getActivity().runOnUiThread(() -> statusText.setText(buildStatusText(status, true)));
+                }
+            });
         } else {
             Toast.makeText(getContext(), "Doesn't have internet permissions", Toast.LENGTH_SHORT).show();
         }
