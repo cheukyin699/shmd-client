@@ -1,13 +1,18 @@
 package ca.cheuksblog.shmdclient;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
@@ -49,6 +54,19 @@ public class StatusFragment extends Fragment {
     }
 
     @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        NavController navController = Navigation.findNavController(view);
+        AppBarConfiguration appBarConfiguration =
+                new AppBarConfiguration.Builder(navController.getGraph()).build();
+        Toolbar toolbar = view.findViewById(R.id.toolbar);
+
+        NavigationUI.setupWithNavController(
+                toolbar, navController, appBarConfiguration);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
@@ -72,7 +90,7 @@ public class StatusFragment extends Fragment {
         return view;
     }
 
-    private String buildStatusText(Status status, boolean online) {
+    private String buildStatusText(SHMDApi.Status status, boolean online) {
         final int downloaded = 0;
         final int total = status == null ? 0 : status.total;
         return getString(
@@ -95,7 +113,7 @@ public class StatusFragment extends Fragment {
                     Log.e("shmd", e.toString());
                     getActivity().runOnUiThread(() -> statusText.setText(buildStatusText(null, false)));
                 } else {
-                    final Status status = statusResult.getData();
+                    final SHMDApi.Status status = statusResult.getData();
                     getActivity().runOnUiThread(() -> statusText.setText(buildStatusText(status, true)));
                 }
             });
