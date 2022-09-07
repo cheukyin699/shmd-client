@@ -45,10 +45,9 @@ public class BrowseFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         NavController navController = Navigation.findNavController(view);
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder()
+        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(R.id.statusFragment)
                 .build();
         Toolbar toolbar = view.findViewById(R.id.toolbar);
-        toolbar.getMenu().clear();
         toolbar.inflateMenu(R.menu.search);
 
         NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration);

@@ -1,7 +1,9 @@
 package ca.cheuksblog.shmdclient;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,14 +22,25 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         setPreferencesFromResource(R.xml.root_preferences, rootKey);
     }
 
+    @NonNull
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View v = super.onCreateView(inflater, container, savedInstanceState);
+
+        ViewGroup wrapper = (ViewGroup) inflater.inflate(R.layout.settings_wrapper, container, false);
+        wrapper.addView(v);
+
+        return wrapper;
+    }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         NavController navController = Navigation.findNavController(view);
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder()
+        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(R.id.statusFragment)
                 .build();
-        Toolbar toolbar = new Toolbar(getContext());
+        Toolbar toolbar = view.findViewById(R.id.toolbar);
 
         NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration);
 
