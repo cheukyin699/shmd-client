@@ -82,10 +82,12 @@ public class SHMDApi {
 
     public void setIp(String ip) {
         this.ip = ip;
+        updateBaseUrl();
     }
 
     public void setPort(String port) {
         this.port = port;
+        updateBaseUrl();
     }
 
     public String getIp() {

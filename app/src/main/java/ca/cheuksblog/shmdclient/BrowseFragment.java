@@ -45,10 +45,14 @@ public class BrowseFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         NavController navController = Navigation.findNavController(view);
-        AppBarConfiguration appBarConfiguration =
-                new AppBarConfiguration.Builder(navController.getGraph()).build();
-        Toolbar toolbar = view.findViewById(R.id.searchToolbar);
+        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder()
+                .build();
+        Toolbar toolbar = view.findViewById(R.id.toolbar);
+        toolbar.getMenu().clear();
         toolbar.inflateMenu(R.menu.search);
+
+        NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration);
+
         MenuItem item = toolbar.getMenu().findItem(R.id.app_bar_search);
         SearchView searchView = (SearchView) item.getActionView();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -65,9 +69,6 @@ public class BrowseFragment extends Fragment {
                 return false;
             }
         });
-
-        NavigationUI.setupWithNavController(
-                toolbar, navController, appBarConfiguration);
     }
 
     @Override

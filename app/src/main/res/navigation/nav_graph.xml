@@ -7,7 +7,7 @@
     <fragment
         android:id="@+id/statusFragment"
         android:name="ca.cheuksblog.shmdclient.StatusFragment"
-        android:label="SHMD Status"
+        android:label="Server Status"
         tools:layout="@layout/fragment_status" >
         <action
             android:id="@+id/action_statusFragment_to_settingsFragment"
