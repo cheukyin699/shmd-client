@@ -26,7 +26,6 @@ public class ManageDownloadsFragment extends Fragment {
     private MediaAdapter adapter;
 
     public ManageDownloadsFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -39,9 +38,9 @@ public class ManageDownloadsFragment extends Fragment {
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_manage_downloads, container, false);
 
-        recyclerView = root.findViewById(R.id.browseRecyclerView);
+        recyclerView = root.findViewById(R.id.downloadedRecyclerView);
         layoutManager = new GridLayoutManager(getActivity(), 3);
-        adapter = new MediaAdapter(getActivity());
+        adapter = new MediaAdapter(getActivity(), new LocalApi(getActivity()));
 
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(layoutManager);

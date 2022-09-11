@@ -24,9 +24,6 @@ import java.util.concurrent.Executors;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Executor executor;
-    private SHMDApi shmdApi;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,8 +31,8 @@ public class MainActivity extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-        executor = Executors.newSingleThreadExecutor();
-        shmdApi = new SHMDApi(
+        Executor executor = Executors.newSingleThreadExecutor();
+        SHMDApi shmdApi = new SHMDApi(
                 sharedPreferences.getString("server_ip", "10.0.0.125"),
                 sharedPreferences.getString("server_port", "3030"),
                 executor

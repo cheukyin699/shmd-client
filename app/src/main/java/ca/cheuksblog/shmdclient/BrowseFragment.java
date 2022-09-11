@@ -79,7 +79,7 @@ public class BrowseFragment extends Fragment {
         recyclerView = root.findViewById(R.id.browseRecyclerView);
 
         layoutManager = new GridLayoutManager(getActivity(), 3);
-        adapter = new MediaAdapter(getActivity());
+        adapter = new MediaAdapter(getActivity(), SHMDApi.getInstance());
 
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(layoutManager);

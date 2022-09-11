@@ -19,7 +19,8 @@ import java.util.ArrayList;
 
 public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.ViewHolder> {
     private ArrayList<Media> dataset;
-    private SHMDApi.QueryParams params = null;
+    private Api.QueryParams params = null;
+    private Api api;
     private int total = 0;
     private Activity rootActivity;
 
@@ -29,7 +30,7 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.ViewHolder> 
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.media_item, parent, false);
 
-        return new ViewHolder(v);
+        return new ViewHolder(v, api);
     }
 
     @Override
@@ -65,18 +66,20 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.ViewHolder> 
         private ImageView albumImageView;
         private TextView titleTextView;
         private TextView artistTextView;
+        private Api api;
 
-        public ViewHolder(final View v) {
+        public ViewHolder(final View v, final Api api) {
             super(v);
 
             albumImageView = v.findViewById(R.id.albumImageView);
             titleTextView = v.findViewById(R.id.titleTextView);
             artistTextView = v.findViewById(R.id.artistTextView);
+            this.api = api;
         }
 
         public void setMedia(final Media data) {
             Glide.with(albumImageView)
-                    .load(SHMDApi.getInstance().getAlbumThumbnailPath(data))
+                    .load(api.getAlbumThumbnailPath(data))
                     .placeholder(R.drawable.placeholder)
                     .error(R.drawable.not_found)
                     .fallback(R.drawable.not_found)
@@ -97,9 +100,10 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.ViewHolder> 
         }
     }
 
-    public MediaAdapter(final Activity activity) {
+    public MediaAdapter(final Activity activity, final Api api) {
         this.dataset = new ArrayList<>();
         this.rootActivity = activity;
+        this.api = api;
         setParams(new SHMDApi.QueryParams());
     }
 
@@ -112,7 +116,7 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.ViewHolder> 
     public void setParams(SHMDApi.QueryParams params) {
         this.params = params;
 
-        SHMDApi.getInstance().countMedia(params, result -> {
+        api.countMedia(params, result -> {
             if (!result.hasError()) {
                 rootActivity.runOnUiThread(() -> {
                     // Using notifyItemRangeDeleted crashes the app
